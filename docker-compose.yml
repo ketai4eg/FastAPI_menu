@@ -24,7 +24,7 @@ services:
         uvicorn main:menu_app --host 0.0.0.0 --reload
       "
     volumes:
-      - ./src:/app/src
+      - ./src:/app/src/
     networks:
       - menu_app_network
     restart: always
@@ -55,3 +55,26 @@ services:
       start_period: 10s
 
 
+#  test_menu_app:
+#    container_name: test_menu_app
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      PG_USER: 'admin1'
+#      PG_PASSWORD: 'admin111'
+#      PG_HOST: 'app_db'
+#      PG_PORT: 5432
+#      PG_DB: 'app_db'
+##    environment:
+##      PG_USER: 'admin1'
+##      PG_PASSWORD: 'admin111'
+##      PG_HOST: 'app_db'
+##      PG_PORT: 5432
+##      PG_DB : 'app_db'
+###      API_URL: 'menu_app'
+#    command: 'pytest -vv'
+#    networks:
+#      - menu_app_network
+#    depends_on:
+#      - menu_app
