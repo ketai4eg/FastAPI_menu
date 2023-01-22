@@ -17,53 +17,8 @@ services:
       PG_PASSWORD: 'admin111'
       PG_HOST: 'app_db'
       PG_PORT: 5432
-      PG_DB : 'app_db'
+      PG_DB: 'app_db'
+      API_URL: 'http://menu_app:8000/api/v1'
     command: 'pytest -vv'
     networks:
       - test_network
-
-#  test_menu_app:
-#    container_name: fastapi_menu
-#    image: fastapi_training_menu_app
-##    build:
-##      context: .
-##      dockerfile: Dockerfile
-#    environment:
-#      PG_USER: 'admin1'
-#      PG_PASSWORD: 'admin111'
-#      PG_HOST: 'app_db'
-#      PG_PORT: 5432
-#      PG_DB : 'app_db'
-#
-#    command: 'pytest -vv'
-#
-#    networks:
-#      - test_network
-#    restart: always
-#    ports:
-#      - "8000:8000"
-#    depends_on:
-#      test_db:
-#        condition: service_healthy
-
-
-#  test_db:
-#    container_name: test_db
-#    image: postgres:15.1-alpine
-#    environment:
-#      POSTGRES_USER: 'admin'
-#      POSTGRES_PASSWORD: 'admin1'
-#      POSTGRES_DB: 'test_db'
-#    expose:
-#      - 5432
-#    ports:
-#      - '5544:5432'
-#    networks:
-#      - test_network
-#    restart: unless-stopped
-#    healthcheck:
-#      test: [ "CMD-SHELL", "pg_isready -U admin -d test_db" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
-#      start_period: 10s
