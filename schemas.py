@@ -75,7 +75,7 @@ class SubMenuUpdate(SubMenuCreation):
 
 class DishesBase(BaseModel):
     title: str
-    description: str
+    description: str | None
     price: float
 
     class Config:

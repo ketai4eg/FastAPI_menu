@@ -1,0 +1,99 @@
+POST http://127.0.0.1:8000/api/v1/menus
+Content-Type: application/json
+
+{
+ "title": "third",
+ "description": "bla bla bla"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/v1/menus/2
+Content-Type: application/json
+
+###
+
+PATCH http://127.0.0.1:8000/api/v1/menus/1
+Content-Type: application/json
+
+{
+ "title": "new bla123 bla bla",
+ "description": "bla bla bla"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/api/v1/menus/4
+Content-Type: application/json
+
+###
+
+POST http://127.0.0.1:8000/api/v1/menus/3/submenus
+Content-Type: application/json
+
+{
+ "title": "23",
+ "description": "bla bla bla"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/v1/menus/2/submenus
+Content-Type: application/json
+
+###
+
+GET http://127.0.0.1:8000/api/v1/menus/4/submenus/
+Content-Type: application/json
+
+###
+
+PATCH http://127.0.0.1:8000/api/v1/menus/2/submenus/5
+Content-Type: application/json
+
+{
+ "title": "53",
+ "description": "bl"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/api/v1/menus/4/submenus/5
+Content-Type: application/json
+
+###
+
+POST http://127.0.0.1:8000/api/v1/menus/4/submenus/2/dishes
+Content-Type: application/json
+
+{
+ "title": "ss13233",
+ "description": "bla bla bla",
+ "price": 17.345
+}
+
+###
+
+GET http://127.0.0.1:8000/api/v1/menus/4/submenus/5/dishes
+Content-Type: application/json
+
+###
+
+PATCH http://127.0.0.1:8000/api/v1/menus/2/submenus/3/dishes/2
+Content-Type: application/json
+
+{
+ "title": "draniki",
+ "price": 100500
+}
+
+###
+
+DELETE  http://127.0.0.1:8000/api/v1/menus/4/submenus/6/dishes/1
+Content-Type: application/json
+
+
+###
+
+GET http://127.0.0.1:8000/api/v1/menus_test/
+Content-Type: application/json

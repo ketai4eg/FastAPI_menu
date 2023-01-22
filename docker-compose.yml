@@ -1,12 +1,57 @@
 version: '3.9'
 
+networks:
+  menu_app_network:
+    name: menu_app_network
+
+
 services:
-  test_db:
-    image: postgres:latest
-    ports:
-      - '5431:5432'
+  menu_app:
+    container_name: fastapi_menu
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-      POSTGRES_USER: 'admin'
-      POSTGRES_PASSWORD: 'admin1'
-      POSTGRES_DB: 'test_db'
+      PG_USER: 'admin1'
+      PG_PASSWORD: 'admin111'
+      PG_HOST: 'app_db'
+      PG_PORT: 5432
+      PG_DB : 'app_db'
+    entrypoint: >
+      sh -c "
+        echo 'Starting app now' &&
+        echo 'we are ready' &&
+        uvicorn main:menu_app --host 0.0.0.0 --reload
+      "
+    volumes:
+      - ./src:/app/src
+    networks:
+      - menu_app_network
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      app_db:
+        condition: service_healthy
+
+
+  app_db:
+    container_name: app_db
+    image: postgres:15.1-alpine
+    environment:
+      POSTGRES_USER: 'admin1'
+      POSTGRES_PASSWORD: 'admin111'
+      POSTGRES_DB: 'app_db'
+    ports:
+      - '5433:5432'
+    networks:
+      - menu_app_network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin1 -d app_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
 
