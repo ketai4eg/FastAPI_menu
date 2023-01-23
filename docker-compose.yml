@@ -5,6 +5,10 @@ networks:
     name: menu_app_network
 
 
+volumes:
+  pgdata:
+
+
 services:
   menu_app:
     container_name: fastapi_menu
@@ -44,6 +48,10 @@ services:
       POSTGRES_DB: 'app_db'
     ports:
       - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./logs:/var/log
+      - .:/docker-entrypoint-initdb.d
     networks:
       - menu_app_network
     restart: unless-stopped

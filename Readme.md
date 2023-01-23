@@ -3,16 +3,24 @@ Menu FastAPI project.
 Menu has submenu and submenu has dishes.
 CRUD available for each layer.
 Swagger docs are available 127.0.0.1:8000/docs
-.env file with database parameters should be created in the root (example with tests info):
-    PG_USER = 'admin'
-    PG_PASSWORD = 'admin1'
-    PG_HOST = '127.0.0.1'
-    PG_PORT = 5431
-    PG_DB = 'test_db'
 
-for the simplicity, all files stored in the same folder including Postman tests.
+.env file is not important anymore. All env. variables are in docker-compose file.
 
-After creation of .env file, virtualenv should be created and activated. Python 3.10 was used.
-Requirements should be installed by next command "pip install -r requirements.txt"
-Test database can be started simply by "docker-compose up" command
-Afterwards "uvicorn main:menu_app" or "uvicorn main:menu_app --reload" should be run
+To run "deploy" version use standard docker-compose.yml with next command:
+
+docker-compose up 
+(can be -d if you would like to use command line)
+
+The tests cover all CRUD functions of the app. There are two options to run tests:
+
+The first one run it totally isolated, with separate empty database which will be removed after tests. In order to run this one use docker-compose.isolated_test.yml file or run next command:
+ 
+docker-compose -f docker-compose.isolated_test.yml up 
+
+The second one used for testing "deploy" version. Thus, previously you should run main server by command:
+
+docker-compose up
+
+and after, just run tests which will influence main database! You can run by using next command:
+
+docker-compose -f docker-compose.test.yml up

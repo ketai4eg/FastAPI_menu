@@ -33,7 +33,7 @@ def create_item(title: str, path: str, description: str | None = None, price: Op
         return basic_request('post', path, json={'title': title, 'description': description, 'price': price})
 
 
-def get_item(path:str):
+def get_item(path: str):
     return basic_request('get', path)
 
 
