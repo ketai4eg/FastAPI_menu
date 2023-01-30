@@ -115,13 +115,18 @@ def get_submenu_by_name(db: Session, title: str):
 
 
 def create_submenu(db: Session, menu_id, submenu: schemas.SubMenuCreation):
-    new_submenu = models.SubMenu(
-        menu_id=menu_id, title=submenu.title, description=submenu.description,
-    )
-    db.add(new_submenu)
-    db.commit()
-    db.refresh(new_submenu)
-    return new_submenu
+    try:
+        new_submenu = models.SubMenu(
+            menu_id=menu_id, title=submenu.title, description=submenu.description,
+        )
+        db.add(new_submenu)
+        db.commit()
+        db.refresh(new_submenu)
+        return new_submenu
+    except:
+        raise HTTPException(
+            status_code=404, detail='menu not found'.lower(),
+        )
 
 
 def get_submenus_list(db: Session, item_id: int):

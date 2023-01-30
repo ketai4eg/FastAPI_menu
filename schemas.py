@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 
@@ -12,11 +12,25 @@ class TempMenu(BaseModel):
 
 
 class MenuOut(BaseModel):
-    title: str
+    title: str = Field(
+        title='Menu title',
+        max_length=100,
+    )
     id: str
     description: str | None
     submenus_count: int = 0
     dishes_count: int = 0
+
+    class Config:
+        schema_extra = {
+            'example': {
+                'title': 'Breakfast',
+                'description': 'Something light',
+                'menu id': '5',
+                'submenu_count': 5,
+                'dishes_count': 3,
+            },
+        }
 
 
 class MenuBase(BaseModel):
@@ -25,11 +39,25 @@ class MenuBase(BaseModel):
 
     class Config:
         orm_mode = True
+        schema_extra = {
+            'example': {
+                'title': 'Breakfast',
+                'description': 'Something light',
+            },
+        }
 
 
 class Menu(MenuBase):
     id: str
-    # submenus: List['SubMenuBase']
+
+    class Config:
+        schema_extra = {
+            'example': {
+                'title': 'Breakfast',
+                'description': 'Something light',
+                'id': '5',
+            },
+        }
 
 
 class MenuUpdate(BaseModel):
@@ -38,6 +66,13 @@ class MenuUpdate(BaseModel):
 
     class Config:
         orm_mode = True
+        schema_extra = {
+            'example': {
+                'title': 'Breakfast',
+                'description': 'Something light',
+                'id': '5',
+            },
+        }
 
 
 class SubMenuCreation(BaseModel):
@@ -46,6 +81,13 @@ class SubMenuCreation(BaseModel):
 
     class Config:
         orm_mode = True
+        schema_extra = {
+            'example': {
+                'title': 'Blin4iki',
+                'description': 'Round and fried',
+                'id': '5',
+            },
+        }
 
 
 class TempSubMenu(BaseModel):
@@ -61,6 +103,17 @@ class SubMenuOut(BaseModel):
     id: str
     description: str | None
     dishes_count: int = 0
+
+    class Config:
+        orm_mode = True
+        schema_extra = {
+            'example': {
+                'title': 'Blin4iki',
+                'description': 'Round and fried',
+                'id': '5',
+                'dishes_count': 7,
+            },
+        }
 
 
 class SubMenuBase(SubMenuCreation):
@@ -80,14 +133,41 @@ class DishesBase(BaseModel):
 
     class Config:
         orm_mode = True
+        schema_extra = {
+            'example': {
+                'title': 'Blin4iki',
+                'description': 'Round and fried',
+                'price': 5.7,
+            },
+        }
 
 
 class DishesReturn(DishesBase):
     price: str
     id: str
 
+    class Config:
+        schema_extra = {
+            'example': {
+                'title': 'Blin4iki',
+                'description': 'Round and fried',
+                'price': '5.7',
+                'id': '7',
+            },
+        }
+
 
 class DishUpdate(DishesBase):
     title: Optional[str] = None
     description: Optional[str] = None
     price: Optional[float] = None
+
+    class Config:
+        schema_extra = {
+            'example': {
+                'title': 'Blin4iki',
+                'description': 'Round and fried',
+                'price': '50.7',
+                'id': '7',
+            },
+        }
