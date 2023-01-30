@@ -21,6 +21,13 @@ services:
       PG_HOST: 'app_db'
       PG_PORT: 5432
       PG_DB : 'app_db'
+      REDIS_HOST: app_redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      REDIS_ENCODING: utf-8
+      REDIS_CACHE_EXPIRE_TIME: 300
+      REDIS_MAX_CONNECTIONS: 10
+
     entrypoint: >
       sh -c "
         echo 'Starting app now' &&
@@ -37,6 +44,8 @@ services:
     depends_on:
       app_db:
         condition: service_healthy
+      app_redis:
+        condition: service_healthy
 
 
   app_db:
@@ -46,6 +55,7 @@ services:
       POSTGRES_USER: 'admin1'
       POSTGRES_PASSWORD: 'admin111'
       POSTGRES_DB: 'app_db'
+
     ports:
       - '5433:5432'
     volumes:
@@ -61,3 +71,18 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+
+  app_redis:
+    container_name: app_redis
+    image: redis:latest
+    expose:
+      - 6379
+    ports:
+      - "9000:6379"
+    networks:
+      - menu_app_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 20s
+      retries: 100

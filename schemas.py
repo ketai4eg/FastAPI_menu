@@ -15,7 +15,7 @@ class MenuOut(BaseModel):
     title: str
     id: str
     description: str | None
-    submenus_count: int
+    submenus_count: int = 0
     dishes_count: int = 0
 
 

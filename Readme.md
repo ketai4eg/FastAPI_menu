@@ -1,4 +1,4 @@
-Menu FastAPI project. 
+Menu FastAPI project.
 
 Menu has submenu and submenu has dishes.
 CRUD available for each layer.
@@ -14,7 +14,7 @@ To run "deploy" version use standard docker-compose.yml with next command:
 The tests cover all CRUD functions of the app. There are two options to run tests:
 
 The first one run it totally isolated, with separate empty database which will be removed after tests. In order to run this one use docker-compose.isolated_test.yml file or run next command:
- 
+
 <mark>docker-compose -f docker-compose.isolated_test.yml up </mark>
 
 The second one used for testing "deploy" version. Thus, previously you should run main server by command:
