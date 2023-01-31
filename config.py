@@ -17,10 +17,9 @@ REDIS_PORT = os.getenv('REDIS_PORT', 6379)
 REDIS_DB = os.getenv('REDIS_DB', 0)
 REDIS_ENCODING = os.getenv('REDIS_ENCODING', 'utf-8')
 REDIS_CACHE_EXPIRE_TIME = os.getenv('REDIS_CACHE_EXPIRE_TIME', 300)
-REDIS_MAX_CONNECTIONS = os.getenv('REDIS_MAX_CONNECTIONS', 10)
 
 pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 r = redis.Redis(
     connection_pool=pool, encoding=REDIS_ENCODING,
-    max_connections=REDIS_MAX_CONNECTIONS,
+    max_connections=10,
 )

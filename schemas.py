@@ -122,7 +122,7 @@ class SubMenuBase(SubMenuCreation):
 
 
 class SubMenuUpdate(SubMenuCreation):
-    title: Optional[str] = None
+    title: str
     description: Optional[str] = None
 
 
@@ -158,9 +158,9 @@ class DishesReturn(DishesBase):
 
 
 class DishUpdate(DishesBase):
-    title: Optional[str] = None
+    title: str
     description: Optional[str] = None
-    price: Optional[float] = None
+    price: float
 
     class Config:
         schema_extra = {

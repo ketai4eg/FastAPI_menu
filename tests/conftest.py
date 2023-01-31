@@ -23,7 +23,7 @@ def new_menu_create():
         }
 
 
-def new_submenu_create(menu_id):
+def new_submenu_create(menu_id: int) -> dict:
     with Session() as session:
         new_submenu = SubMenu(
             title=f'new_submenu_{time.time()}', description='blablabla', menu_id=menu_id,
@@ -38,7 +38,7 @@ def new_submenu_create(menu_id):
         }
 
 
-def new_dish_create(submenu_id):
+def new_dish_create(submenu_id: int) -> dict:
     with Session() as session:
         new_dish = Dish(
             title=f'new_dish_{time.time()}', description='blablabla', submenu_id=submenu_id, price=10.65,

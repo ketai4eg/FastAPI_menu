@@ -28,7 +28,7 @@ def basic_request(method: Literal['get', 'post', 'patch', 'delete'], path: str, 
 
 def create_item(title: str, path: str, description: str | None = None, price: Optional[float] = None):
     if price is None:
-        return basic_request('post', path, json={'title': title, 'description': description})
+        return basic_request(method='post', path=path, json={'title': title, 'description': description})
     else:
         return basic_request('post', path, json={'title': title, 'description': description, 'price': price})
 
