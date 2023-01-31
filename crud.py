@@ -73,7 +73,8 @@ def get_orm_item_by_name(orm_class, db: Session, title: str):
     db_menu = db.query(orm_class).filter(orm_class.title == title).first()
     if db_menu:
         raise HTTPException(
-            status_code=400, detail=f'{orm_class.__name__} already existed'.lower(),
+            status_code=400,
+            detail=f'{orm_class.__name__} already existed'.lower(),
         )
     return 'ok'
 
@@ -110,22 +111,32 @@ def delete_item(db: Session, item, layer, menu_id=None, submenu_id=None):
             return {'ok': True}
 
 
-def get_submenu_by_name(db: Session, title: str):
+def get_submenu_by_name(
+    db: Session,
+    title: str,
+):
     return db.query(models.SubMenu).filter(models.SubMenu.title == title).first()
 
 
-def create_submenu(db: Session, menu_id, submenu: schemas.SubMenuCreation):
+def create_submenu(
+    db: Session,
+    menu_id,
+    submenu: schemas.SubMenuCreation,
+):
     try:
         new_submenu = models.SubMenu(
-            menu_id=menu_id, title=submenu.title, description=submenu.description,
+            menu_id=menu_id,
+            title=submenu.title,
+            description=submenu.description,
         )
         db.add(new_submenu)
         db.commit()
         db.refresh(new_submenu)
         return new_submenu
-    except:
+    except Exception:
         raise HTTPException(
-            status_code=404, detail='menu not found'.lower(),
+            status_code=404,
+            detail='menu not found'.lower(),
         )
 
 
@@ -146,7 +157,6 @@ def get_submenus_list(db: Session, item_id: int):
         )
         list_submenus.append(submenu)
     submenus = list[schemas.TempSubMenu](list_submenus)
-
     return submenus
 
 
@@ -196,7 +206,8 @@ def get_dish(orm_class, object_id, db):
     item = db.get(orm_class, object_id)
     if item is None:
         raise HTTPException(
-            status_code=404, detail=f'{orm_class.__name__} not found'.lower(),
+            status_code=404,
+            detail=f'{orm_class.__name__} not found'.lower(),
         )
     cache.cache_set(item, 'dish')
     return item

@@ -16,17 +16,18 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PG_USER: 'admin1'
-      PG_PASSWORD: 'admin111'
-      PG_HOST: 'app_db'
-      PG_PORT: 5432
-      PG_DB : 'app_db'
-      REDIS_HOST: app_redis
-      REDIS_PORT: 6379
-      REDIS_DB: 0
-      REDIS_ENCODING: utf-8
-      REDIS_CACHE_EXPIRE_TIME: 300
-      REDIS_MAX_CONNECTIONS: 10
+      CONFIG_FILE: '.env'
+#      PG_USER: 'admin1'
+#      PG_PASSWORD: 'admin111'
+#      PG_HOST: 'app_db'
+#      PG_PORT: 5432
+#      PG_DB : 'app_db'
+#      REDIS_HOST: app_redis
+#      REDIS_PORT: 6379
+#      REDIS_DB: 0
+#      REDIS_ENCODING: utf-8
+#      REDIS_CACHE_EXPIRE_TIME: 300
+#      REDIS_MAX_CONNECTIONS: 10
 
     entrypoint: >
       sh -c "

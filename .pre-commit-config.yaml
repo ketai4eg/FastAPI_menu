@@ -28,4 +28,4 @@ repos:
     hooks:
     -   id: flake8
         exclude: __init__.py
-        args: ["--ignore=E501, F821, E"]
+        args: ["--ignore=E501"]
