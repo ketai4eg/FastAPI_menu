@@ -11,16 +11,11 @@ To run "deploy" version use standard docker-compose.yml with next command:
 <mark>docker-compose up</mark>
 (can be -d if you would like to use command line)
 
-The tests cover all CRUD functions of the app. There are two options to run tests:
+The tests cover all CRUD functions of the app.
 
-
-The tests used for testing "deploy" version. Thus, previously you should run main server and
+The test used for testing "deploy" version. Thus, previously you should run main server and
 after, just run tests which will influence main database! You can run by using next command:
 
 <mark>docker-compose up</mark> <br>
 <mark>docker-compose -f docker-compose.test.yml up</mark>
 
-in case you want to start from empty database you should clean volume data.
-
-And second option is running isolated service just for tests. Here you need to run docker-compose.isolated_test.yml file by similar command: <br>
-<mark>docker-compose -f docker-compose.isolated_test.yml up</mark>
