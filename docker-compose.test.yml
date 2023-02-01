@@ -12,11 +12,11 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PG_USER: 'admin1'
-      PG_PASSWORD: 'admin111'
-      PG_HOST: 'app_db'
-      PG_PORT: 5432
-      PG_DB: 'app_db'
+#      PG_USER: 'admin1'
+#      PG_PASSWORD: 'admin111'
+#      PG_HOST: 'app_db'
+#      PG_PORT: 5432
+#      PG_DB: 'app_db'
       API_URL: 'http://menu_app:8000/api/v1'
     command: 'pytest -vv'
     networks:

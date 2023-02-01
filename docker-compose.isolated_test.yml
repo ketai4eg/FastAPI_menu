@@ -11,18 +11,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      PG_USER: 'admin1'
-      PG_PASSWORD: 'admin111'
-      PG_HOST: 'test_db'
-      PG_PORT: 5432
-      PG_DB : 'test_db'
-      REDIS_HOST: test_redis
-      REDIS_PORT: 6379
-      REDIS_DB: 0
-      REDIS_ENCODING: utf-8
-      REDIS_CACHE_EXPIRE_TIME: 300
-      REDIS_MAX_CONNECTIONS: 10
     entrypoint: >
       sh -c "
         echo 'Starting app now' &&
@@ -34,31 +22,27 @@ services:
     restart: always
     expose:
       - 8000
-#    ports:
-#      - "8000:8000"
     depends_on:
-      test_db:
+      app_db:
         condition: service_healthy
-      test_redis:
+      app_redis:
         condition: service_healthy
 
 
-  test_db:
-    container_name: test_db
+  app_db:
+    container_name: app_db
     image: postgres:15.1-alpine
     environment:
       POSTGRES_USER: 'admin1'
       POSTGRES_PASSWORD: 'admin111'
-      POSTGRES_DB: 'test_db'
+      POSTGRES_DB: 'app_db'
     expose:
       - 5432
-#    ports:
-#      - '5433:5432'
     networks:
       - another_network
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U admin1 -d test_db" ]
+      test: [ "CMD-SHELL", "pg_isready -U admin1 -d app_db" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -70,11 +54,6 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PG_USER: 'admin1'
-      PG_PASSWORD: 'admin111'
-      PG_HOST: 'test_db'
-      PG_PORT: 5432
-      PG_DB: 'test_db'
       API_URL: 'http://test_menu_up:8000/api/v1'
     command: 'pytest -vv'
     networks:
@@ -82,13 +61,11 @@ services:
     depends_on:
       - test_menu_app
 
-  test_redis:
-    container_name: test_redis
+  app_redis:
+    container_name: app_redis
     image: redis:latest
     expose:
       - 6379
-#    ports:
-#      - "9000:6379"
     networks:
       - another_network
     healthcheck:

@@ -142,11 +142,14 @@ class DishesBase(BaseModel):
         }
 
 
-class DishesReturn(DishesBase):
+class DishesReturn(BaseModel):
+    title: str
+    description: str | None
     price: str
     id: str
 
     class Config:
+        orm_mode = True
         schema_extra = {
             'example': {
                 'title': 'Blin4iki',

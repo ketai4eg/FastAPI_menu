@@ -15,8 +15,8 @@ class ApiError(Exception):
 
 def basic_request(method: Literal['get', 'post', 'patch', 'delete'], path: str, **kwargs) -> dict:
     path = f'{API_URL}/{path}'
-    method = getattr(session, method)
-    response = method(path, **kwargs)
+    callable = getattr(session, str(method))
+    response = callable(path, **kwargs)
     if response.status_code >= 400:
         try:
             message = response.json()
@@ -28,9 +28,17 @@ def basic_request(method: Literal['get', 'post', 'patch', 'delete'], path: str, 
 
 def create_item(title: str, path: str, description: str | None = None, price: Optional[float] = None):
     if price is None:
-        return basic_request(method='post', path=path, json={'title': title, 'description': description})
+        return basic_request(
+            method='post',
+            path=path,
+            json={'title': title, 'description': description},
+        )
     else:
-        return basic_request('post', path, json={'title': title, 'description': description, 'price': price})
+        return basic_request(
+            method='post',
+            path=path,
+            json={'title': title, 'description': description, 'price': price},
+        )
 
 
 def get_item(path: str):

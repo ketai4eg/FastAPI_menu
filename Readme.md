@@ -4,7 +4,7 @@ Menu has submenu and submenu has dishes.
 CRUD available for each layer.
 Swagger docs are available 127.0.0.1:8000/docs
 
-.env file is not important anymore. All env. variables are in docker-compose file.
+.env file contains all parameters for the run deploy version.
 
 To run "deploy" version use standard docker-compose.yml with next command:
 
@@ -21,3 +21,6 @@ after, just run tests which will influence main database! You can run by using n
 <mark>docker-compose -f docker-compose.test.yml up</mark>
 
 in case you want to start from empty database you should clean volume data.
+
+And second option is running isolated service just for tests. Here you need to run docker-compose.isolated_test.yml file by similar command:
+<mark>docker-compose -f docker-compose.isolated_test.yml up</mark>

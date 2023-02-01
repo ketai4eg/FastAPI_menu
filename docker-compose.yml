@@ -15,8 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      CONFIG_FILE: '.env'
+#    environment:
 #      PG_USER: 'admin1'
 #      PG_PASSWORD: 'admin111'
 #      PG_HOST: 'app_db'
@@ -56,7 +55,6 @@ services:
       POSTGRES_USER: 'admin1'
       POSTGRES_PASSWORD: 'admin111'
       POSTGRES_DB: 'app_db'
-
     ports:
       - '5433:5432'
     volumes:
@@ -78,8 +76,8 @@ services:
     image: redis:latest
     expose:
       - 6379
-    ports:
-      - "9000:6379"
+#    ports:
+#      - "9000:6379"
     networks:
       - menu_app_network
     healthcheck:
