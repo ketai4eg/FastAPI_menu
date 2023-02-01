@@ -22,5 +22,5 @@ after, just run tests which will influence main database! You can run by using n
 
 in case you want to start from empty database you should clean volume data.
 
-And second option is running isolated service just for tests. Here you need to run docker-compose.isolated_test.yml file by similar command:
+And second option is running isolated service just for tests. Here you need to run docker-compose.isolated_test.yml file by similar command: <br>
 <mark>docker-compose -f docker-compose.isolated_test.yml up</mark>
