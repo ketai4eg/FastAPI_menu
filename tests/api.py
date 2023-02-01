@@ -15,8 +15,8 @@ class ApiError(Exception):
 
 def basic_request(method: Literal['get', 'post', 'patch', 'delete'], path: str, **kwargs) -> dict:
     path = f'{API_URL}/{path}'
-    callable = getattr(session, str(method))
-    response = callable(path, **kwargs)
+    call = getattr(session, method)
+    response = call(path, **kwargs)
     if response.status_code >= 400:
         try:
             message = response.json()

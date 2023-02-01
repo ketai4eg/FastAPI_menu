@@ -1,8 +1,8 @@
 import os
 import redis
-from dotenv import load_dotenv
-
-load_dotenv()
+# from dotenv import load_dotenv
+#
+# load_dotenv()
 
 PG_USER = os.getenv('PG_USER', 'admin1')
 PG_PASSWORD = os.getenv('PG_PASSWORD', 'admin111')

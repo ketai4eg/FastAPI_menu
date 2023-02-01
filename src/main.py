@@ -3,13 +3,13 @@ import http
 from fastapi import Depends, FastAPI, status
 from sqlalchemy.orm import Session
 
-from models import Menu, SubMenu, Dish
+from src.models import Menu, SubMenu, Dish
 
-from database import SessionLocal, engine
+from src.database import SessionLocal, engine
 
-import schemas
-import crud
-import models
+import src.schemas as schemas
+import src.crud as crud
+import src.models as models
 
 models.Base.metadata.create_all(bind=engine)
 menu_app = FastAPI()

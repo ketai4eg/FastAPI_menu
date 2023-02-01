@@ -1,7 +1,7 @@
 
 import json
 from fastapi.encoders import jsonable_encoder
-from config import r
+from src.config import r
 
 
 def cache_set(d, layer):

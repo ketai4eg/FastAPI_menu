@@ -1,9 +1,9 @@
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session, joinedload
-import models
-import schemas
-import cache
+import src.models as models
+import src.schemas as schemas
+from src import cache
 
 
 def get_menus_info(db: Session, object_id: int | None = None):

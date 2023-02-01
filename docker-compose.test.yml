@@ -11,13 +11,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     environment:
-#      PG_USER: 'admin1'
-#      PG_PASSWORD: 'admin111'
-#      PG_HOST: 'app_db'
-#      PG_PORT: 5432
-#      PG_DB: 'app_db'
-      API_URL: 'http://menu_app:8000/api/v1'
-    command: 'pytest -vv'
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_HOST=app_db
+      - PG_PORT=${PG_PORT}
+      - PG_DB=${PG_DB}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_DB=${REDIS_DB}
+      - REDIS_ENCODING=${REDIS_ENCODING}
+      - REDIS_CACHE_EXPIRE_TIME=${REDIS_CACHE_EXPIRE_TIME}
+      - REDIS_MAX_CONNECTIONS=${REDIS_MAX_CONNECTIONS}
+      - SQLALCHEMY_SILENCE_UBER_WARNING=1
+      - API_URL=http://menu_app:8000/api/v1
+    command: 'pytest -vvs'
     networks:
       - test_network

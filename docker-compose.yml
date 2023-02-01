@@ -3,6 +3,7 @@ version: '3.9'
 networks:
   menu_app_network:
     name: menu_app_network
+    driver: bridge
 
 
 volumes:
@@ -15,24 +16,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    environment:
-#      PG_USER: 'admin1'
-#      PG_PASSWORD: 'admin111'
-#      PG_HOST: 'app_db'
-#      PG_PORT: 5432
-#      PG_DB : 'app_db'
-#      REDIS_HOST: app_redis
-#      REDIS_PORT: 6379
-#      REDIS_DB: 0
-#      REDIS_ENCODING: utf-8
-#      REDIS_CACHE_EXPIRE_TIME: 300
-#      REDIS_MAX_CONNECTIONS: 10
+    env_file:
+      - .env
+    environment:
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_HOST=app_db
+      - PG_PORT=${PG_PORT}
+      - PG_DB=${PG_DB}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_DB=${REDIS_DB}
+      - REDIS_ENCODING=${REDIS_ENCODING}
+      - REDIS_CACHE_EXPIRE_TIME=${REDIS_CACHE_EXPIRE_TIME}
+      - REDIS_MAX_CONNECTIONS=${REDIS_MAX_CONNECTIONS}
 
     entrypoint: >
       sh -c "
         echo 'Starting app now' &&
         echo 'we are ready' &&
-        uvicorn main:menu_app --host 0.0.0.0 --reload
+        uvicorn src.main:menu_app --host 0.0.0.0 --reload
       "
     volumes:
       - ./src:/app/src/
@@ -51,10 +54,14 @@ services:
   app_db:
     container_name: app_db
     image: postgres:15.1-alpine
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: 'admin1'
-      POSTGRES_PASSWORD: 'admin111'
-      POSTGRES_DB: 'app_db'
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DB}
+    expose:
+      - 5432
     ports:
       - '5433:5432'
     volumes:
@@ -76,8 +83,8 @@ services:
     image: redis:latest
     expose:
       - 6379
-#    ports:
-#      - "9000:6379"
+    ports:
+      - "9000:6379"
     networks:
       - menu_app_network
     healthcheck:

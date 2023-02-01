@@ -1,12 +1,20 @@
 import pytest
 import time
-from models import Base, Menu, SubMenu, Dish
-from config import PG_DSN
+import redis
+from src.models import Base, Menu, SubMenu, Dish
+from src.config import PG_DSN, REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_ENCODING
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+
 engine = create_engine(PG_DSN)
 Session = sessionmaker(bind=engine)
+
+pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+r = redis.Redis(
+    connection_pool=pool, encoding=REDIS_ENCODING,
+    max_connections=10,
+)
 
 
 def new_menu_create():
@@ -58,6 +66,8 @@ def new_dish_create(submenu_id: int) -> dict:
 def cleanup_database():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
+    r.flushdb()
+
     yield
 
 

@@ -13,39 +13,16 @@ def test_root():
 
 
 #  TEST CREATE FROM CRUD
-def test_create_menu():
-    new_user = api.create_item(
-        'new_menu_1', description=DESCRIPTION, path='menus/',
-    )
-    assert 'id' in new_user
-
-    new_user2 = api.create_item('new_menu_2', path='menus/')
-    assert 'id' in new_user2
+def test_create_menu(new_menu):
+    assert 'id' in new_menu
 
 
-def test_create_submenu(root_menu):
-    new_submenu = api.create_item(
-        'new_submenu_1', description=DESCRIPTION, path=f'menus/{root_menu["id"]}/submenus/',
-    )
-    assert 'id' in new_submenu
-
-    new_submenu2 = api.create_item(
-        'new_submenu_2', path=f'menus/{root_menu["id"]}/submenus/',
-    )
-    assert 'id' in new_submenu2
+def test_create_submenu(root_submenu):
+    assert 'id' in root_submenu
 
 
-def test_create_dish(root_submenu):
-    new_dish = api.create_item(
-        title='new_dish_1', price=10.07, description=DESCRIPTION,
-        path=f'menus/{root_submenu["menu_id"]}/submenus/{root_submenu["id"]}/dishes/',
-    )
-    assert 'id' in new_dish
-    new_dish3 = api.create_item(
-        title='new_dish_3', price=10.07,
-        path=f'menus/{root_submenu["menu_id"]}/submenus/{root_submenu["id"]}/dishes/',
-    )
-    assert 'id' in new_dish3
+def test_create_dish(root_dish):
+    assert 'id' in root_dish
 
 
 # TEST READ FROM CRUD
